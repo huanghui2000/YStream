@@ -18,8 +18,8 @@ public class MethodAnnoScanner implements Scanner {
      */
     @Override
     public void scanAll() {
-        String packageName = ClazzAnnoScanner.class.getPackage().getName().replace("scanner", "anno.method");
-        ScannerTool.getAnno(packageName, scanResult);
+        String packageName = MethodAnnoScanner.class.getPackage().getName().replace("scanner", "anno.method");
+        ScannerTool.getPackClass(packageName, scanResult);
     }
 
     /**

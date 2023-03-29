@@ -14,6 +14,16 @@ import java.util.Enumeration;
  */
 public class ClazzScanner implements Scanner {
     private final ArrayList<Class<?>> scanResult = new ArrayList<>();
+    //指定包名
+    private String packageName = "";
+
+    ClazzScanner(String packageName) {
+        this.packageName = packageName;
+    }
+
+    ClazzScanner() {
+    }
+
 
     /**
      * 类扫描器的扫描结果
@@ -21,7 +31,6 @@ public class ClazzScanner implements Scanner {
      * @return ArrayList<Class < ?>>
      */
     public ArrayList<Class<?>> getScanResult() {
-        scanAll();
         return scanResult;
     }
 
@@ -32,10 +41,11 @@ public class ClazzScanner implements Scanner {
      * 扫描只需要扫描这个包和其子包下的所有类即可
      */
     public void scanAll() {
-        String packageName = ScannerApplication.getMainClassAddress().getPackageName();
         try {
             //将包名转换为路径名
             String path = packageName.replace(".", "/");
+            if (path.equals(""))
+                throw new Exception("包名不能为空");
             //获取类加载器
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             //获取指定包名下的所有资源

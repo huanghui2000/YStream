@@ -19,7 +19,7 @@ public class ClazzAnnoScanner implements Scanner {
     @Override
     public void scanAll() {
         String packageName = ClazzAnnoScanner.class.getPackage().getName().replace("scanner", "anno.clazz");
-        ScannerTool.getAnno(packageName, scanResult);
+        ScannerTool.getPackClass(packageName, scanResult);
     }
 
     /**
