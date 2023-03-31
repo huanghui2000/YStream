@@ -1,6 +1,6 @@
-package cn;
+package com.ystream;
 
-import cn.trigger.frame.Tactics;
+import com.ystream.trigger.frame.Tactics;
 
 import java.util.ArrayList;
 

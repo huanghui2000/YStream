@@ -1,10 +1,9 @@
-package cn.scanner;
+package com.ystream.scanner;
 
-import cn.scanner.frame.Scanner;
+import com.ystream.scanner.frame.Scanner;
+import com.ystream.scanner.util.ScannerTool;
 
 import java.util.ArrayList;
-
-import cn.scanner.util.ScannerTool;
 
 /**
  * 策略扫描器

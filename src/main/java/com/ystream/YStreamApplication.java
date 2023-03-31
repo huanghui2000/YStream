@@ -1,8 +1,8 @@
-package cn;
+package com.ystream;
 
-import cn.scanner.ScannerApplication;
-import cn.trigger.PolicyAssembler;
-import cn.trigger.frame.Tactics;
+import com.ystream.trigger.DataClassifier;
+import com.ystream.trigger.frame.Tactics;
+import com.ystream.trigger.PolicyAssembler;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,8 @@ public class YStreamApplication {
      * 装填触发器汇总的策略集合
      */
     public static void run(Class<?> clazz) {
-        // 启动扫描器
-        ScannerApplication.run(clazz);
+        // 启动数据整合器获取所有数据集
+        DataClassifier.run(clazz);
         // 装填触发器汇总的策略集合
         tacticList = PolicyAssembler.getTacticList();
     }

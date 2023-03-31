@@ -1,4 +1,4 @@
-package cn.anno.method;
+package com.ystream.anno.method;
 
 
 /**

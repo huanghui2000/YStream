@@ -1,4 +1,4 @@
-package cn.trigger.frame;
+package com.ystream.trigger.frame;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

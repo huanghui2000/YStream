@@ -1,7 +1,7 @@
-package cn.trigger.strategy;
+package com.ystream.trigger.strategy;
 
-import cn.anno.method.StreamOperation;
-import cn.trigger.frame.Tactics;
+import com.ystream.anno.method.StreamOperation;
+import com.ystream.trigger.frame.Tactics;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 /**
  * 包含策略 INCLUDE
  */
+
 public class IncludeType extends Tactics {
     //所属@StreamOperation
     private final Class<? extends Annotation> annoType = StreamOperation.class;
@@ -79,17 +80,12 @@ public class IncludeType extends Tactics {
 
     /**
      * 触发函数
-     *
-     * @param method 函数
-     * @param arg    函数的参数
-     * @return 函数的返回值
-     * @throws Exception
      */
     public static String invokeTriggerFunction(Method method, Object arg) throws Exception {
         // 判断函数是否为静态函数
         boolean isStatic = Modifier.isStatic(method.getModifiers());
         // 如果不是静态函数，则创建一个对象实例
-        Object obj = isStatic ? null : method.getDeclaringClass().newInstance();
+        Object obj = isStatic ? null : method.getDeclaringClass().getDeclaringClass();
 
         // 获取函数的参数类型列表和返回值类型
         Class<?>[] parameterTypes = method.getParameterTypes();
@@ -112,10 +108,10 @@ public class IncludeType extends Tactics {
                 return (result == null) ? "触发了函数但是没有返回值" : result.toString();
             } else {
                 // 参数类型错误，则抛出异常
-                throw new IllegalArgumentException("参数类型错误，需要提供 String 类型参数");
+                throw new IllegalArgumentException("参数类型错误，需要提供 单个String 类型参数");
             }
         } else { // 参数数量大于 1
-            throw new IllegalArgumentException("该函数的参数数量大于 1，不支持此操作");
+            throw new IllegalArgumentException("参数类型错误，需要提供 单个String 类型参数");
         }
     }
 

@@ -1,4 +1,4 @@
-package cn.scanner.frame;
+package com.ystream.scanner.frame;
 
 import java.util.ArrayList;
 

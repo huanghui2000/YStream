@@ -1,6 +1,6 @@
-package cn.scanner;
+package com.ystream.scanner;
 
-import cn.scanner.frame.Scanner;
+import com.ystream.scanner.frame.Scanner;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

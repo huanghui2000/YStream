@@ -1,7 +1,7 @@
-package cn.scanner;
+package com.ystream.scanner;
 
-import cn.scanner.frame.Scanner;
-import cn.scanner.util.ScannerTool;
+import com.ystream.scanner.frame.Scanner;
+import com.ystream.scanner.util.ScannerTool;
 
 import java.net.URL;
 import java.util.ArrayList;

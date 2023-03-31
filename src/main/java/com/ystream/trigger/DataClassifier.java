@@ -1,7 +1,7 @@
-package cn.trigger;
+package com.ystream.trigger;
 
-import cn.scanner.ScannerApplication;
-import cn.trigger.frame.Tactics;
+import com.ystream.scanner.ScannerApplication;
+import com.ystream.trigger.frame.Tactics;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -15,6 +15,10 @@ import java.util.HashMap;
  */
 @SuppressWarnings({"unchecked", "deprecation"})
 public class DataClassifier {
+    public static void run(Class<?> clazz) {
+        //启动ScannerApplication
+        ScannerApplication.run(clazz);
+    }
 
     /**
      * 中传从ScannerApplication获取策略集,

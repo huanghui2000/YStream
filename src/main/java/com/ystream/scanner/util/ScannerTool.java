@@ -1,4 +1,4 @@
-package cn.scanner.util;
+package com.ystream.scanner.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +34,9 @@ public class ScannerTool {
                 //判断条件写入
                 if (entryName.endsWith(".class") && !entryName.contains("springframework")) {
                     String className = entryName.substring(0, entryName.lastIndexOf(".")).replaceAll("/", ".");
-                    className = className.substring(className.indexOf("BOOT-INF.classes.") + 17);
+                    //如果存在BOOT-INF.classes.则去掉
+                    if (className.contains("BOOT-INF.classes."))
+                        className = className.substring(className.indexOf("BOOT-INF.classes.") + 17);
                     //判断是否是指定包名下的类
                     if (className.startsWith(packageName)) {
                         //如果注解列表不为空，则只返回注解列表中的注解了的类

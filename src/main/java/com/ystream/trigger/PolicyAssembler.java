@@ -1,6 +1,6 @@
-package cn.trigger;
+package com.ystream.trigger;
 
-import cn.trigger.frame.Tactics;
+import com.ystream.trigger.frame.Tactics;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -20,14 +20,6 @@ public class PolicyAssembler {
      */
     public static ArrayList<Tactics> getTacticList() {
         run();
-        //将tacticList中相同的策略集的Map合并为一个新的实例中
-        for (int i = 0; i < tacticList.size(); i++)
-            for (int j = i + 1; j < tacticList.size(); j++)
-                if (tacticList.get(i).getAnnotationType().equals(tacticList.get(j).getAnnotationType())) {
-                    tacticList.get(i).getTriggerArgs().putAll(tacticList.get(j).getTriggerArgs());
-                    tacticList.remove(j);
-                    j--;
-                }
         return tacticList;
     }
 
@@ -56,11 +48,18 @@ public class PolicyAssembler {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    //判断标记集中的标记是否是策略集的触发条件
                     //判断该策略集是否存在于tacticList中
-                    if (tactics != null && tactics.isTactics(map, hashMapMethodHashMap.get(map)))
-                        if (!tacticList.contains(tactics))
+                    if (tactics != null && tactics.isTactics(map, hashMapMethodHashMap.get(map))) {
+                        //将tacticList中相同的策略集的Map合并为一个新的实例中
+                        for (Tactics value : tacticList)
+                            if (value.getAnnotationType().equals(tactics.getAnnotationType())) {
+                                value.getTriggerArgs().putAll(tactics.getTriggerArgs());
+                                tactics = null;
+                                break;
+                            }
+                        if (tactics != null)
                             tacticList.add(tactics);
+                    }
                 }
             }
         }
