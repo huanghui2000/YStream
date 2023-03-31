@@ -15,15 +15,11 @@ import java.util.Enumeration;
 public class ClazzScanner implements Scanner {
     private final ArrayList<Class<?>> scanResult = new ArrayList<>();
     //指定包名
-    private String packageName = "";
+    private final String packageName;
 
     ClazzScanner(String packageName) {
         this.packageName = packageName;
     }
-
-    ClazzScanner() {
-    }
-
 
     /**
      * 类扫描器的扫描结果
@@ -31,6 +27,7 @@ public class ClazzScanner implements Scanner {
      * @return ArrayList<Class < ?>>
      */
     public ArrayList<Class<?>> getScanResult() {
+        scanAll();
         return scanResult;
     }
 

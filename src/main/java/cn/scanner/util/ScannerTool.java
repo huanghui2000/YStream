@@ -3,11 +3,9 @@ package cn.scanner.util;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -146,24 +144,5 @@ public class ScannerTool {
         }
     }
 
-    /**
-     * 获取方法中所有参数的值
-     * 添加为HashMap<String,String>
-     */
-    public static HashMap<String, String> getAnnoString(Class<? extends Annotation> anno, Method method) {
-        HashMap<String, String> map = new HashMap<>();
-        //获取注解的实例化
-        Annotation annotation = method.getAnnotation(anno);
-        //拼接注解的所有属性，利用/分割
-        Method[] methods1 = anno.getDeclaredMethods();
-        for (Method m : methods1) {
-            try {
-                Object value = m.invoke(annotation);
-                map.put(m.getName(), value.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return map;
-    }
+
 }

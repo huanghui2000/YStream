@@ -24,7 +24,6 @@ public class StrategyScanner implements Scanner {
         ScannerTool.getPackClass(packageName, tactics);
     }
 
-
     @Override
     public ArrayList<Class<?>> getScanResult() {
         scanAll();

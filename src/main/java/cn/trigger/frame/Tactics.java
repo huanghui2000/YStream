@@ -41,5 +41,8 @@ public abstract class Tactics {
      * 处理流触发某个函数
      */
     abstract public String process(String message);
-
+    /**
+     * 获取触发函数的参数集
+     */
+    abstract public HashMap<ArrayList<String>, Method> getTriggerArgs() ;
 }

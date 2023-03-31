@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MethodScanner implements Scanner {
     private final ArrayList<Method> scanResult = new ArrayList<>();
     //需要扫描的类
-    private ArrayList<Class<?>> clazzScanResult = new ArrayList<>();
+    private final ArrayList<Class<?>> clazzScanResult;
 
     MethodScanner(ArrayList<Class<?>> clazzScanResult) {
         this.clazzScanResult = clazzScanResult;

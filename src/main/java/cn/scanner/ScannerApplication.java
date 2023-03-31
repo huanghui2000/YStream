@@ -1,6 +1,5 @@
 package cn.scanner;
 
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
