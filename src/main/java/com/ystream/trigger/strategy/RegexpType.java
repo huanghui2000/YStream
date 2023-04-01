@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 包含策略 INCLUDE
+ * 正则策略  REGEXP
  */
-
-@SuppressWarnings("unused")
-public class IncludeType extends Tactics {
+public class RegexpType extends Tactics {
     //所属@StreamOperation
     private final Class<? extends Annotation> annoType = StreamOperation.class;
     //编辑集合
@@ -30,12 +28,12 @@ public class IncludeType extends Tactics {
 
     /**
      * 某标注的属性集是否是触发本策略集的条件
-     * 本策略集是包含策略，需要存在
+     * 本策略集是 正则策略，需要匹配正则表达式
      */
     @Override
     public boolean isTactics(HashMap<String, String> map, Method method) {
         //获取属性type，查看是INCLUDE
-        if (map.get("type").equals("INCLUDE")) {
+        if (map.get("type").equals("REGEXP")) {
             ArrayList<String> args = new ArrayList<>();
             args.add(map.get("content"));
             triggerArgs.put(args, method);
@@ -49,9 +47,9 @@ public class IncludeType extends Tactics {
      */
     @Override
     public boolean isTrigger(String message) {
-        //遍历triggerArgs，如果包含message，返回true
+        //遍历triggerArgs，如果匹配message，返回true
         for (ArrayList<String> args : triggerArgs.keySet()) {
-            if (message.contains(args.get(0))) {
+            if (message.matches(args.get(0))) {
                 return true;
             }
         }
@@ -64,10 +62,10 @@ public class IncludeType extends Tactics {
      */
     @Override
     public ArrayList<String> process(String message) {
-        //遍历triggerArgs，如果不包含message，执行对应的方法，将结果添加到result中
+        //遍历triggerArgs，如果匹配message，执行对应的方法，将结果添加到result中
         ArrayList<String> result = new ArrayList<>();
         for (ArrayList<String> args : triggerArgs.keySet()) {
-            if (message.contains(args.get(0))) {
+            if (message.matches(args.get(0))) {
                 try {
                     result.add(invokeTriggerFunction(triggerArgs.get(args), message));
                 } catch (Exception e) {

@@ -50,9 +50,9 @@ public class PolicyAssembler {
                     }
                     //判断该策略集是否存在于tacticList中
                     if (tactics != null && tactics.isTactics(map, hashMapMethodHashMap.get(map))) {
-                        //将tacticList中相同的策略集的Map合并为一个新的实例中
+                        //将tacticList中相同类的策略集的Map合并为一个新的实例中
                         for (Tactics value : tacticList)
-                            if (value.getAnnotationType().equals(tactics.getAnnotationType())) {
+                            if (value.getClass().equals(tactics.getClass())) {
                                 value.getTriggerArgs().putAll(tactics.getTriggerArgs());
                                 tactics = null;
                                 break;
