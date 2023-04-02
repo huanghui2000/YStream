@@ -16,7 +16,7 @@ public class ScannerApplication {
     //启动类的地址
     private static Class<?> mainClassAddress;
     //所有的扫描结果
-    private static HashMap<Annotation, Method> markupContainers = new HashMap<>();
+    private static HashMap<Annotation, ArrayList<Method>> markupContainers = new HashMap<>();
 
     /**
      * 获取启动类的地址
@@ -49,14 +49,23 @@ public class ScannerApplication {
         //获取函数注解包扫描器的扫描结果
         ArrayList<Method> methodList = new MethodScanner(classList).getScanResult();
         //新建一个MarkupContainer列表
-        HashMap<Annotation, Method> markupContainerList = new HashMap<>();
+        HashMap<Annotation, ArrayList<Method>> markupContainerList = new HashMap<>();
         //遍历函数扫描器的扫描结果
         for (Method method : methodList) {
             //获取函数的注解
             Annotation[] annotations = method.getAnnotations();
-            //将注解和对应的函数写入HashMap<Annotation, Method>
-            for (Annotation annotation : annotations)
-                markupContainerList.put(annotation, method);
+            //将注解和对应的函数写入HashMap HashMap<Annotation, ArrayList<Method>>
+            for (Annotation annotation : annotations) {
+                //判断是否存在注解，如果有则添加到Method列表中
+                if (markupContainerList.containsKey(annotation)) {
+                    markupContainerList.get(annotation).add(method);
+                } else {
+                    //如果没有则新建一个Method列表
+                    ArrayList<Method> methodArrayList = new ArrayList<>();
+                    methodArrayList.add(method);
+                    markupContainerList.put(annotation, methodArrayList);
+                }
+            }
         }
         //将所有的扫描结果添加到静态变量中
         markupContainers = markupContainerList;
@@ -67,7 +76,7 @@ public class ScannerApplication {
      *
      * @return ArrayList<MarkupContainer>
      */
-    public static HashMap<Annotation, Method> getMarkupContainers() {
+    public static  HashMap<Annotation, ArrayList<Method>> getMarkupContainers() {
         return markupContainers;
     }
 

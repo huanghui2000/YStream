@@ -4,6 +4,7 @@ import com.ystream.scanner.frame.Scanner;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 /**
@@ -37,8 +38,12 @@ public class MethodScanner implements Scanner {
                 Method[] methods = clazz.getDeclaredMethods();
                 //判断方法是否包含函数注解
                 for (Method method : methods)
-                    if (method.isAnnotationPresent(anno))
+                    if (method.isAnnotationPresent(anno)) {
+                        //剔除私有方法
+                        if (method.getModifiers() == Modifier.PRIVATE)
+                            continue;
                         scanResult.add(method);
+                    }
             }
         }
     }

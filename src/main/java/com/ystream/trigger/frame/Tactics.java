@@ -13,15 +13,17 @@ import java.util.HashMap;
  * 2.某标注的属性集是否是触发本策略集的条件,如果是则加入触发函数的参数集
  * 3.流是否会触发本策略集
  * 4.如果触发了，会触发哪个函数
- * 5.标记集合<触发函数的参数集,触发函数>
+ * 5.标记集合<触发的参数集,触发函数>
  * 6.触发函数
  */
 @SuppressWarnings("unused")
 public abstract class Tactics {
     //所属的注解类型
     private Class<? extends Annotation> annoType;
-    //触发函数的参数集,其中key可以为多种类型
-    private HashMap<?, Method> triggerArgs;
+    //触发函数的参数集,其中函数可能会是多个
+    private HashMap<?, ArrayList<Method>> triggerArgs;
+
+    abstract public HashMap<?, ArrayList<Method>> getTriggerArgs();
 
     /**
      * 获取注解
@@ -29,9 +31,9 @@ public abstract class Tactics {
     abstract public Class<? extends Annotation> getAnnotationType();
 
     /**
-     * 某标注的属性集String是否是触发本策略集的条件
+     * 某标注的属性集HashMap<String, String>是否是触发本策略集的条件
      */
-    abstract public boolean isTactics(HashMap<String, String> map, Method method);
+    abstract public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods);
 
     /**
      * 判断处理流是否触发了策略集
@@ -39,14 +41,9 @@ public abstract class Tactics {
     abstract public boolean isTrigger(String message);
 
     /**
-     * 处理流触发某个函数
+     * 处理流触发相关函数
      */
     abstract public ArrayList<String> process(String message);
-
-    /**
-     * 获取触发函数的参数集
-     */
-    abstract public HashMap<ArrayList<String>, Method> getTriggerArgs();
 
     /**
      * 触发函数
@@ -55,8 +52,7 @@ public abstract class Tactics {
         // 判断函数是否为静态函数
         boolean isStatic = Modifier.isStatic(method.getModifiers());
         // 如果不是静态函数，则创建一个对象实例
-        Object obj = isStatic ? null : method.getDeclaringClass().getDeclaringClass();
-
+        Object obj = isStatic ? null : method.getDeclaringClass().newInstance();
         // 获取函数的参数类型列表和返回值类型
         Class<?>[] parameterTypes = method.getParameterTypes();
         Class<?> returnType = method.getReturnType();

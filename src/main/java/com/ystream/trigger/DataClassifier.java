@@ -11,9 +11,9 @@ import java.util.HashMap;
 /**
  * 数据中转和分类器
  * 1.接收来自扫描器的策略集和标记集
- * 2.处理策略集和标记集将其转化为可用的数据结构
+ * 2.处理策略集和标记集将其转化为需要的数据结构
  */
-@SuppressWarnings({"unchecked", "deprecation"})
+@SuppressWarnings({"unchecked"})
 public class DataClassifier {
     public static void run(Class<?> clazz) {
         //启动ScannerApplication
@@ -54,29 +54,44 @@ public class DataClassifier {
 
     /**
      * 中传从ScannerApplication获取标记集
-     * 根据@分类为HashMap<Class<? extends Annotation>, HashMap<HashMap<String,String>,Method>>
+     * 根据@分类为ashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>,ArrayList<Method>>>
      */
-    public static HashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>, Method>> getMarkupContainers() {
+    public static HashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>, ArrayList<Method>>> getMarkupContainers() {
         //获取所有的标记类
-        HashMap<Annotation, Method> markupContainers = ScannerApplication.getMarkupContainers();
+        HashMap<Annotation, ArrayList<Method>> markupContainers = ScannerApplication.getMarkupContainers();
         //将注解类型分类
-        HashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>, Method>> markupCollection = new HashMap<>();
+        HashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>, ArrayList<Method>>> markupCollection = new HashMap<>();
         for (Annotation annotation : markupContainers.keySet()) {
             //获取注解的类型
             Class<? extends Annotation> annotationType = annotation.annotationType();
             //获取注解的方法
-            Method method = markupContainers.get(annotation);
-            //获取注解的属性
-            HashMap<String, String> annoString = getAnnoString(annotationType, method);
-            //判断标记集中是否存在该注解类型
-            if (markupCollection.containsKey(annotationType)) {
-                //如果存在，直接添加
-                markupCollection.get(annotationType).put(annoString, method);
-            } else {
-                //如果不存在，创建一个新的HashMap
-                HashMap<HashMap<String, String>, Method> map = new HashMap<>();
-                map.put(annoString, method);
-                markupCollection.put(annotationType, map);
+            ArrayList<Method> methods = markupContainers.get(annotation);
+            for (Method method : methods) {
+                //获取注解的属性
+                HashMap<String, String> annoString = getAnnoString(annotationType, method);
+                //判断标记集中是否存在该注解类型
+                if (markupCollection.containsKey(annotationType)) {
+                    //判断是否存在对应的属性HashMap，如果有将方法添加进方法列表中
+                    if (markupCollection.get(annotationType).containsKey(annoString)) {
+                        markupCollection.get(annotationType).get(annoString).add(method);
+                    } else {
+                        //如果不存在，创建一个新的方法列表
+                        ArrayList<Method> list = new ArrayList<>();
+                        list.add(method);
+                        //将方法列表添加到对应的HashMap中
+                        markupCollection.get(annotationType).put(annoString, list);
+                    }
+                } else {
+                    //如果不存在，创建一个添加一个新的注解类型的HashMap
+                    markupCollection.put(annotationType, new HashMap<>());
+                    //将方法和属性添加到对应的HashMap中
+                    HashMap<HashMap<String, String>, ArrayList<Method>> map = new HashMap<>();
+                    ArrayList<Method> list = new ArrayList<>();
+                    list.add(method);
+                    map.put(annoString, list);
+                    markupCollection.get(annotationType).putAll(map);
+                }
+
             }
         }
         return markupCollection;
