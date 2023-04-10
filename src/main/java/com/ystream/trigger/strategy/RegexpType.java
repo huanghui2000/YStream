@@ -33,7 +33,7 @@ public class RegexpType extends Tactics {
 
     /**
      * 某标注的属性集是否是触发本策略集的条件
-     * 本策略集是 正则策略，需要匹配正则表达式
+     * 本策略集是 正则策略，需要属性type为REGEXP
      */
     @Override
     public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods) {

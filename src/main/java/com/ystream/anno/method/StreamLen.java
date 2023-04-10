@@ -6,16 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 流注解-模式注解
- * 包含一个枚举类型的参数，选择操作类型
- * 一个string类型的参数，写入操作内容
+ * 流注解-长度注解
+ * 有两种版本
+ * 只有一个参数，表示流的长度
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {ElementType.METHOD})
-public @interface StreamOperation {
-    //操作类型
-    OperationType type();
-
-    //操作内容
-    String content();
+public @interface StreamLen {
+    //流的长度
+    int len() default 0;
 }
+

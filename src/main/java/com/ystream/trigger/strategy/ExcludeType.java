@@ -32,7 +32,7 @@ public class ExcludeType extends Tactics {
 
     /**
      * 某标注的属性集是否是触发本策略集的条件
-     * 本策略集是 包含策略，需要包含某个关键字
+     * 本策略集是 包含策略，需要属性type为EXCLUDE
      */
     @Override
     public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods) {

@@ -51,7 +51,6 @@ public class PolicyAssembler {
                     ArrayList<Method> methods = markupContainer.get(markup);
                     //对策略进行装配
                     if (tactic != null) {
-
                         tactic.isTactics(markup, methods);
                     }
                 }
