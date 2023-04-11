@@ -86,3 +86,4 @@ YStream.md
         System.out.println("处理结果：" + channel.getResult());
    }
   ```
+  ![YStream](https://github.com/huanghui2000/YStream/blob/master/YStream.png)
