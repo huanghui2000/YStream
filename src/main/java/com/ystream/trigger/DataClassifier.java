@@ -15,6 +15,9 @@ import java.util.HashMap;
  */
 @SuppressWarnings({"unchecked"})
 public class DataClassifier {
+    /**
+     * 启动扫描器中心来获取策略集和标记集
+     */
     public static void run(Class<?> clazz) {
         //启动ScannerApplication
         ScannerApplication.run(clazz);

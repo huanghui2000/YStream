@@ -36,16 +36,14 @@ public class RegexpType extends Tactics {
      * 本策略集是 正则策略，需要属性type为REGEXP
      */
     @Override
-    public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods) {
+    public void isTactics(HashMap<String, String> map, ArrayList<Method> methods) {
         //获取属性type，查看是REGEXP
         if (map.get("type").equals("REGEXP")) {
             //如果是REGEXP，将属性content和方法集合加入触发集合
             ArrayList<String> args = new ArrayList<>();
             args.add(map.get("content"));
             triggerArgs.put(args, methods);
-            return true;
         }
-        return false;
     }
 
     /**

@@ -33,7 +33,7 @@ public abstract class Tactics {
     /**
      * 某标注的属性集HashMap<String, String>是否是触发本策略集的条件
      */
-    abstract public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods);
+    abstract public void isTactics(HashMap<String, String> map, ArrayList<Method> methods);
 
     /**
      * 判断处理流是否触发了策略集

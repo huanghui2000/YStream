@@ -34,15 +34,13 @@ public class LenType extends Tactics {
      * 本策略集是 流长度策略，需要存在属性len
      */
     @Override
-    public boolean isTactics(HashMap<String, String> map, ArrayList<Method> methods) {
+    public void isTactics(HashMap<String, String> map, ArrayList<Method> methods) {
         //获取属性len，查看是否存在
         if (map.containsKey("len")) {
             //如果存在，将属性len和方法集合加入触发集合
             int len = Integer.parseInt(map.get("len"));
             triggerArgs.put(len, methods);
-            return true;
         }
-        return false;
     }
 
     /**

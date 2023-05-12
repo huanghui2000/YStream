@@ -1,4 +1,4 @@
-package Try;
+package Test;
 
 import com.ystream.YChannel;
 import com.ystream.YStreamApplication;

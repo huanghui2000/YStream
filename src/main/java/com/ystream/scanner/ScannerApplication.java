@@ -76,7 +76,7 @@ public class ScannerApplication {
      *
      * @return ArrayList<MarkupContainer>
      */
-    public static  HashMap<Annotation, ArrayList<Method>> getMarkupContainers() {
+    public static HashMap<Annotation, ArrayList<Method>> getMarkupContainers() {
         return markupContainers;
     }
 

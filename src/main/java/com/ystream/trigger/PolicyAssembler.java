@@ -1,5 +1,6 @@
 package com.ystream.trigger;
 
+import com.ystream.YStreamApplication;
 import com.ystream.trigger.frame.Tactics;
 
 import java.lang.annotation.Annotation;
@@ -19,14 +20,17 @@ public class PolicyAssembler {
      * 封装所有被标记的策略集
      */
     public static ArrayList<Tactics> getTacticList() {
-        run();
+        //启动数据分类器获取所有标记集
+        DataClassifier.run(YStreamApplication.clazzAddress);
+        // 启动数据整合器获取所有数据集进行装配
+        strategyAssembly();
         return tacticList;
     }
 
     /**
      * 将标记集装配到对应的策略集中
      */
-    public static void run() {
+    public static void strategyAssembly() {
         //获取策略集和标记集
         HashMap<Class<? extends Annotation>, ArrayList<Class<?>>> policyCollection = DataClassifier.getPolicyCollection();
         HashMap<Class<? extends Annotation>, HashMap<HashMap<String, String>, ArrayList<Method>>> markupContainers = DataClassifier.getMarkupContainers();
