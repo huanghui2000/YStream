@@ -1,5 +1,7 @@
 package com.ystream.scanner;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -11,12 +13,14 @@ import java.util.HashMap;
  * 2.应该有操作所有的扫描器，并且将所有的扫描结果返回
  * 3.一切的变量都是static的，可以让所有的扫描器共享
  */
+@Slf4j
 @SuppressWarnings("unused")
 public class ScannerApplication {
     //启动类的地址
     private static Class<?> mainClassAddress;
     //所有的扫描结果
     private static HashMap<Annotation, ArrayList<Method>> markupContainers = new HashMap<>();
+    private static ArrayList<Class<?>> policyCollection = new ArrayList<>();
 
     /**
      * 获取启动类的地址
@@ -31,6 +35,7 @@ public class ScannerApplication {
      * 启动扫描器,配置启动类的地址,汇总所有的扫描结果
      */
     public static void run(Class<?> mainClassAddress) {
+        log.info("正在启动扫描器");
         //设置启动类的地址
         ScannerApplication.mainClassAddress = mainClassAddress;
         //汇总所有的扫描结果
@@ -38,10 +43,11 @@ public class ScannerApplication {
     }
 
     /**
-     * 汇总所有的扫描结果
+     * 汇总扫描器的扫描结果
      * 1.获取类扫描器的扫描结果
      * 2.获取函数扫描器的扫描结果
      * 3.封装为HashMap<Annotation, Method>
+     * 4.获取策略集扫描器的扫描结果
      */
     public static void scanSummary() {
         //获取类扫描器的扫描结果
@@ -69,10 +75,11 @@ public class ScannerApplication {
         }
         //将所有的扫描结果添加到静态变量中
         markupContainers = markupContainerList;
+        policyCollection = new StrategyScanner().getScanResult();
     }
 
     /**
-     * 获取所有的扫描结果
+     * 获取类和函数所有的扫描结果
      *
      * @return ArrayList<MarkupContainer>
      */
@@ -81,11 +88,11 @@ public class ScannerApplication {
     }
 
     /**
-     * 获取所有的策略
+     * 获取策略集所有的扫描结果
      *
      * @return ArrayList<Class < ?>>
      */
     public static ArrayList<Class<?>> getPolicyCollection() {
-        return new StrategyScanner().getScanResult();
+        return policyCollection;
     }
 }

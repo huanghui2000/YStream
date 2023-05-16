@@ -2,6 +2,7 @@ package com.ystream.trigger;
 
 import com.ystream.YStreamApplication;
 import com.ystream.trigger.frame.Tactics;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,6 +13,7 @@ import java.util.HashMap;
  * 将标记集装配到对应的策略集中
  * 返回装配后的策略集
  */
+@Slf4j
 @SuppressWarnings({"unused"})
 public class PolicyAssembler {
     static ArrayList<Tactics> tacticList = new ArrayList<>();
@@ -24,6 +26,7 @@ public class PolicyAssembler {
         DataClassifier.run(YStreamApplication.clazzAddress);
         // 启动数据整合器获取所有数据集进行装配
         strategyAssembly();
+        log.info("策略集合装载成功");
         return tacticList;
     }
 

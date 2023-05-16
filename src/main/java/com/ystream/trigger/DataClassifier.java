@@ -2,6 +2,7 @@ package com.ystream.trigger;
 
 import com.ystream.scanner.ScannerApplication;
 import com.ystream.trigger.frame.Tactics;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -13,6 +14,7 @@ import java.util.HashMap;
  * 1.接收来自扫描器的策略集和标记集
  * 2.处理策略集和标记集将其转化为需要的数据结构
  */
+@Slf4j
 @SuppressWarnings({"unchecked"})
 public class DataClassifier {
     /**
@@ -21,6 +23,7 @@ public class DataClassifier {
     public static void run(Class<?> clazz) {
         //启动ScannerApplication
         ScannerApplication.run(clazz);
+        log.info("汇总数据分类成功");
     }
 
     /**

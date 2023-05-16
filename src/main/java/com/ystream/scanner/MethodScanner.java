@@ -1,6 +1,7 @@
 package com.ystream.scanner;
 
 import com.ystream.scanner.frame.Scanner;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
  * 用于扫描类列表中的
  * 所有注解了来自函数注解包的注解的方法
  */
+@Slf4j
 public class MethodScanner implements Scanner {
     private final ArrayList<Method> scanResult = new ArrayList<>();
     //需要扫描的类
@@ -56,6 +58,7 @@ public class MethodScanner implements Scanner {
     @Override
     public ArrayList<Method> getScanResult() {
         scanAll();
+        log.info("[函数/函数注解]扫描器加载成功");
         return scanResult;
     }
 

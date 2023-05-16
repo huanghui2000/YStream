@@ -2,6 +2,7 @@ package com.ystream.scanner;
 
 import com.ystream.scanner.frame.Scanner;
 import com.ystream.scanner.util.ScannerTool;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Enumeration;
  * 用于扫描指定包下
  * 所有注解了来自类注解包的注解的类
  */
+@Slf4j
 public class ClazzScanner implements Scanner {
     private final ArrayList<Class<?>> scanResult = new ArrayList<>();
     //指定包名
@@ -28,6 +30,7 @@ public class ClazzScanner implements Scanner {
      */
     public ArrayList<Class<?>> getScanResult() {
         scanAll();
+        log.info("[类/类注解]扫描器加载成功");
         return scanResult;
     }
 

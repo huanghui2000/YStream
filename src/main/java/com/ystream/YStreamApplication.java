@@ -2,6 +2,8 @@ package com.ystream;
 
 import com.ystream.trigger.frame.Tactics;
 import com.ystream.trigger.PolicyAssembler;
+import lombok.extern.slf4j.Slf4j;
+import com.ystream.plug.BannerReader;
 
 import java.util.ArrayList;
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
  * 流处理系统的启动类
  * 启动扫描器和获取触发器汇总的策略集合
  */
+@Slf4j
 public class YStreamApplication {
     /**
      * 最终装配结束的遍历策略集
@@ -24,6 +27,8 @@ public class YStreamApplication {
      * 装填触发器汇总的策略集合
      */
     public static void run(Class<?> clazz) {
+        log.info("YStream启动中");
+        new BannerReader().printBanner();
         // 装配类触发地址
         clazzAddress = clazz;
         // 装填触发器汇总的策略集合
