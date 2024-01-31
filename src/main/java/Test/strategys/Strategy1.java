@@ -13,8 +13,9 @@ public class Strategy1 {
     匹配为一个11位的数字
      */
     @StreamOperation(type = REGEXP, content = "^\\d{3}$")
-    public static String isPhone(String i) {
+    private static String isPhone(String i) {
         return "这是一个三位的数字";
     }
+
 
 }

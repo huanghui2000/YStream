@@ -47,8 +47,12 @@ public abstract class Tactics {
 
     /**
      * 触发函数
+     * 输入函数和参数，返回函数的返回值
      */
     public static String invokeTriggerFunction(Method method, Object arg) throws Exception {
+        //如果函数私有则设为可访问
+        if (!method.isAccessible())
+            method.setAccessible(true);
         // 判断函数是否为静态函数
         boolean isStatic = Modifier.isStatic(method.getModifiers());
         // 如果不是静态函数，则创建一个对象实例

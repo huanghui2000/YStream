@@ -35,11 +35,12 @@ public class ScannerApplication {
      * 启动扫描器,配置启动类的地址,汇总所有的扫描结果
      */
     public static void run(Class<?> mainClassAddress) {
-        log.info("正在启动扫描器");
+        log.info(" ***************** 正在启动扫描器 ***************** ");
         //设置启动类的地址
         ScannerApplication.mainClassAddress = mainClassAddress;
         //汇总所有的扫描结果
         scanSummary();
+        log.info(" ***************** 扫描器加载完毕 ***************** ");
     }
 
     /**

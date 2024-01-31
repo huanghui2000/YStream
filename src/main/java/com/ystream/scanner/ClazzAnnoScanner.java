@@ -2,6 +2,7 @@ package com.ystream.scanner;
 
 import com.ystream.scanner.util.ScannerTool;
 import com.ystream.scanner.frame.Scanner;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 /**
  * 用于过去类注解包的所有注解列表
  */
+@Slf4j
 public class ClazzAnnoScanner implements Scanner {
 
     private final ArrayList<Class<?>> scanResult = new ArrayList<>();
@@ -28,6 +30,7 @@ public class ClazzAnnoScanner implements Scanner {
     @Override
     public ArrayList<Class<? extends Annotation>> getScanResult() {
         scanAll();
+        log.info("- 类注解扫描器加载完毕          共获取 {} 个类标记注解  -", scanResult.size());
         return ScannerTool.toAnnotationList(scanResult);
     }
 

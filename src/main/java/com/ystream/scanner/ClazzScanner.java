@@ -30,7 +30,7 @@ public class ClazzScanner implements Scanner {
      */
     public ArrayList<Class<?>> getScanResult() {
         scanAll();
-        log.info("[类/类注解]扫描器加载成功");
+        log.info("- 类扫描器加载完毕             共获取 {} 个主动标记类  -", scanResult.size());
         return scanResult;
     }
 
@@ -60,7 +60,6 @@ public class ClazzScanner implements Scanner {
                     ScannerTool.findClassesInJarPackage(packageName, url.getPath().substring(5, url.getPath().indexOf("!")), scanResult, new ClazzAnnoScanner().getScanResult());
             }
         } catch (Exception e) {
-            System.out.println("扫描包的过程中出现异常");
             e.printStackTrace();
         }
     }

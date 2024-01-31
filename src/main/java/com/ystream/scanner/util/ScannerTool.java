@@ -31,7 +31,7 @@ public class ScannerTool {
             while (entry.hasMoreElements()) {
                 JarEntry jarEntry = entry.nextElement();
                 String entryName = jarEntry.getName();
-                //判断条件写入
+                //判断条件写入,这段定死的排除写法后续需要更改,这里只是为了满足当前项目的需求
                 if (entryName.endsWith(".class") && !entryName.contains("springframework")) {
                     String className = entryName.substring(0, entryName.lastIndexOf(".")).replaceAll("/", ".");
                     //如果存在BOOT-INF.classes.则去掉

@@ -28,6 +28,7 @@ public class YStreamApplication {
      */
     public static void run(Class<?> clazz) {
         log.info("YStream启动中");
+        //绘制启动开头的Banner
         new BannerReader().printBanner();
         // 装配类触发地址
         clazzAddress = clazz;

@@ -28,7 +28,7 @@ public class StrategyScanner implements Scanner {
     @Override
     public ArrayList<Class<?>> getScanResult() {
         scanAll();
-        log.info("策略扫描器加载完毕");
+        log.info("- 策略扫描器加载完毕           共获取 {} 个策略       -", tactics.size());
         return tactics;
     }
 }

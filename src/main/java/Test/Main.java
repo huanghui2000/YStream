@@ -15,6 +15,7 @@ public class Main {
             String msg = in.next();
             channel.process(msg);
             System.out.println("处理结果：" + channel.getResult());
+            if (msg.equals("exit")) break;
         }
     }
 }

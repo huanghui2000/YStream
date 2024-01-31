@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 /**
@@ -40,12 +39,8 @@ public class MethodScanner implements Scanner {
                 Method[] methods = clazz.getDeclaredMethods();
                 //判断方法是否包含函数注解
                 for (Method method : methods)
-                    if (method.isAnnotationPresent(anno)) {
-                        //剔除私有方法
-                        if (method.getModifiers() == Modifier.PRIVATE)
-                            continue;
+                    if (method.isAnnotationPresent(anno))
                         scanResult.add(method);
-                    }
             }
         }
     }
@@ -58,7 +53,7 @@ public class MethodScanner implements Scanner {
     @Override
     public ArrayList<Method> getScanResult() {
         scanAll();
-        log.info("[函数/函数注解]扫描器加载成功");
+        log.info("- 函数扫描器加载完毕           共获取 {} 个函数       -", scanResult.size());
         return scanResult;
     }
 
